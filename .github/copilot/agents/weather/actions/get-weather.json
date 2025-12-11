@@ -1,6 +1,6 @@
 {
   "name": "getWeather",
-  "description": "Get current weather for a given city",
+  "description": "Get weather using Open-Meteo public API",
   "input_schema": {
     "type": "object",
     "properties": {
@@ -12,8 +12,11 @@
     "type": "object",
     "properties": {
       "city": { "type": "string" },
-      "temperature": { "type": "string" },
+      "temperature": { "type": "number" },
       "condition": { "type": "string" }
     }
+  },
+  "runtime": {
+    "path": "get-weather.js"
   }
 }
