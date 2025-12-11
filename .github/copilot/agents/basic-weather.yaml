@@ -1,0 +1,22 @@
+name: basic-weather
+description: "POC: Fetch simple weather for a city using wttr.in public API"
+instructions: |
+  You are a Weather assistant. When invoked like "@basic-weather get Chennai",
+  use the weather-fetch tool with city="Chennai". Fetch weather using the public
+  API and convert the JSON into a simple readable weather summary.
+  Output only clean weather text (no JSON, no explanations).
+
+tools:
+  - id: weather-fetch
+    type: http
+    name: "Fetch public weather data"
+    description: "Fetch weather JSON using wttr.in (no API key required)"
+    url: "https://wttr.in/{city}?format=j1"
+    method: GET
+
+actions:
+  - id: write-weather
+    name: "Write weather file to repo"
+    type: repo_create_file
+    path: "weather/{city}.md"
+    content_from: output
