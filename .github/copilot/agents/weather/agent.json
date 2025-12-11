@@ -1,11 +1,23 @@
 {
-  "name": "WeatherAgent",
+  "name": "weather",
   "version": "1.0.0",
-  "description": "Fetch simple weather information.",
-  "instructions": "You are a weather assistant. Use the getWeather action to fetch weather information.",
+  "description": "Simple weather lookup using public API.",
+  "instructions": "You fetch weather using the built-in http tool. Do not call any JavaScript function. Convert API JSON into readable weather output.",
+  "prompts": {
+    "weather": {
+      "file": ".prompts/weather.md"
+    }
+  },
   "actions": {
-    "getWeather": {
-      "path": "actions/get-weather.json"
+    "get": {
+      "description": "Get weather for a city",
+      "args": {
+        "city": {
+          "type": "string",
+          "description": "City name"
+        }
+      },
+      "instructions": "Use the weather prompt and the specified city to fetch weather information."
     }
   }
 }
