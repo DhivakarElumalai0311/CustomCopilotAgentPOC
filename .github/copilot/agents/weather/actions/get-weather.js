@@ -1,19 +1,32 @@
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
-export default async function getWeather({ city }) {
-  const url = `https://wttr.in/${encodeURIComponent(city)}?format=j1`;
+module.exports = async (input) => {
+  const { city } = input;
 
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Weather API failed: ${res.status}`);
+  // Simple city → coordinates map (only for POC)
+  const map = {
+    Chennai: { lat: 13.0827, lon: 80.2707 },
+    Delhi: { lat: 28.7041, lon: 77.1025 },
+    Mumbai: { lat: 19.0760, lon: 72.8777 }
+  };
+
+  if (!map[city]) {
+    return {
+      city,
+      temperature: null,
+      condition: "City not supported in demo"
+    };
   }
 
-  const json = await res.json();
+  const { lat, lon } = map[city];
 
-  const current = json.current_condition?.[0];
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+  const res = await fetch(url);
+  const data = await res.json();
+
   return {
     city,
-    temperature: current.temp_C + "°C",
-    condition: current.weatherDesc[0].value
+    temperature: data.current_weather.temperature,
+    condition: data.current_weather.weathercode.toString()
   };
-}
+};
