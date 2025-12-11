@@ -1,0 +1,19 @@
+{
+  "name": "getWeather",
+  "description": "Get current weather for a given city",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "city": { "type": "string" }
+    },
+    "required": ["city"]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "city": { "type": "string" },
+      "temperature": { "type": "string" },
+      "condition": { "type": "string" }
+    }
+  }
+}
