@@ -1,0 +1,20 @@
+name: basic-fdd2tdd
+description: "POC: Read FDD placeholder by id, combine with repo prompt markdown, and produce a short TDD summary."
+instructions: |
+  You are an FDD→TDD assistant. When invoked like "@basic-fdd2tdd convert 1",
+  use the fdd-fetch tool with id=1, and then use the repo prompt file to shape the output.
+  Output a concise Markdown TDD (title + one-line summary + bullet test points).
+  Do not call any other external APIs.
+tools:
+  - id: fdd-fetch
+    type: http
+    name: "Fetch placeholder FDD"
+    description: "Fetch placeholder FDD JSON by id"
+    url: "https://jsonplaceholder.typicode.com/posts/{id}"
+    method: GET
+actions:
+  - id: write-tdd
+    name: "Write TDD file to repo"
+    type: repo_create_file
+    path: "tdds/tdd-{id}.md"
+    content_from: output
