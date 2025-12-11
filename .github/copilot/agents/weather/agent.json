@@ -1,0 +1,7 @@
+{
+  "name": "WeatherAgent",
+  "version": "1.0",
+  "description": "Gets weather for a city and formats it in simple text.",
+  "instructions": "Use the weather API to fetch weather and return the formatted result.",
+  "models": ["gpt-4o-mini"]
+}
